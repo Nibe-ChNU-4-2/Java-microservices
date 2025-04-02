@@ -1,5 +1,6 @@
-package edu.yevynchuk.eventapp.events;
+package edu.yevynchuk.eventapp.repository;
 
+import edu.yevynchuk.eventapp.model.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

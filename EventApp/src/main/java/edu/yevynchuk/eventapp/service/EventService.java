@@ -1,6 +1,8 @@
-package edu.yevynchuk.eventapp.events;
+package edu.yevynchuk.eventapp.service;
 
 
+import edu.yevynchuk.eventapp.model.Event;
+import edu.yevynchuk.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

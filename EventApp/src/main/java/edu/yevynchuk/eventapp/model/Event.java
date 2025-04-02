@@ -1,4 +1,4 @@
-package edu.yevynchuk.eventapp.events;
+package edu.yevynchuk.eventapp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "event")
 @Getter
+@Setter
 public class Event {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String title;

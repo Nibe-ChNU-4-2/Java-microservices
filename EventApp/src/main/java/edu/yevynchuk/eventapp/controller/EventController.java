@@ -1,5 +1,7 @@
-package edu.yevynchuk.eventapp.events;
+package edu.yevynchuk.eventapp.controller;
 
+import edu.yevynchuk.eventapp.service.EventService;
+import edu.yevynchuk.eventapp.model.Event;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -7,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/event")
+@RequestMapping("/events")
 @RequiredArgsConstructor
 public class EventController {
 
