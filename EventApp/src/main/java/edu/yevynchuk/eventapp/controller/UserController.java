@@ -1,9 +1,10 @@
 package edu.yevynchuk.eventapp.controller;
 
-import edu.yevynchuk.eventapp.model.User;
+import edu.yevynchuk.eventapp.dto.UserCreateDTO;
+import edu.yevynchuk.eventapp.dto.UserDTO;
 import edu.yevynchuk.eventapp.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,27 +14,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
     private final UserService userService;
 
     @GetMapping
-    public List<User> getAllUsers() {
+    public List<UserDTO> getAllUsers() {
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    public UserDTO getUser(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @PostMapping
-    public User addUser(@RequestBody User user) throws Exception {
-        return userService.addUser(user);
+    public UserDTO addUser(@Valid @RequestBody UserCreateDTO userCreateDTO) {
+        return userService.addUser(userCreateDTO);
     }
 
-    @PutMapping
-    public User updateUser(@RequestBody User user) throws Exception {
-        return userService.updateUser(user);
+    @PutMapping("/{id}")
+    public UserDTO updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDTO) throws Exception {
+        return userService.updateUser(id, userDTO);
     }
 
     @DeleteMapping("/{id}")

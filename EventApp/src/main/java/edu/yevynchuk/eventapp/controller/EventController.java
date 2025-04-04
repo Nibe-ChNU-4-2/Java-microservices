@@ -1,9 +1,9 @@
 package edu.yevynchuk.eventapp.controller;
 
+import edu.yevynchuk.eventapp.dto.EventDTO;
 import edu.yevynchuk.eventapp.service.EventService;
-import edu.yevynchuk.eventapp.model.Event;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,28 +13,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EventController {
 
-    @Autowired
-    private EventService eventService;
+    private final EventService eventService;
 
     @GetMapping
-    public List<Event> getEvent() {
+    public List<EventDTO> getEvents() {
         return eventService.getAllEvents();
     }
 
     @GetMapping("/{id}")
-    public Event getEvent(@PathVariable Long id) {
+    public EventDTO getEvent(@PathVariable Long id) {
         return eventService.getEventById(id);
     }
 
     @PostMapping
-    public Event addEvent(@RequestBody Event event) throws Exception {
-        return eventService.addEvent(event);
+    public EventDTO addEvent(@Valid @RequestBody EventDTO eventDTO) {
+        return eventService.addEvent(eventDTO);
     }
 
-    @PutMapping
-    public Event updateEvent(@RequestBody Event event) throws Exception {
-        return eventService.updateEvent(event);
+    @PutMapping("/{id}")
+    public EventDTO updateEvent(@PathVariable Long id, @RequestBody @Valid EventDTO eventDTO) throws Exception {
+        return eventService.updateEvent(id, eventDTO);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteEvent(@PathVariable Long id) {
