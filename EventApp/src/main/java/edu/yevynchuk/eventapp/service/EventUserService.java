@@ -8,6 +8,7 @@ import edu.yevynchuk.eventapp.model.User;
 import edu.yevynchuk.eventapp.repository.EventRepository;
 import edu.yevynchuk.eventapp.repository.UserRepository;
 import edu.yevynchuk.eventapp.repository.EventUserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -46,9 +47,9 @@ public class EventUserService {
     }
 
     public EventUserDTO getEventUserById(Long id) {
-        return eventUserRepository.findById(id)
-                .map(eventUserMapper::toDto)
-                .orElse(null);
+        EventUser eventUser = eventUserRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("EventUser not found with id " + id));
+        return eventUserMapper.toDto(eventUser);
     }
 
     public EventUserDTO updateEventUser(Long id, EventUserDTO dto) {
@@ -66,4 +67,9 @@ public class EventUserService {
 
         return eventUserMapper.toDto(eventUserRepository.save(existing));
     }
+
+
+
+
+
 }

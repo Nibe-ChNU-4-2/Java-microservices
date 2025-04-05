@@ -2,8 +2,10 @@ package edu.yevynchuk.eventapp.controller;
 
 import edu.yevynchuk.eventapp.dto.EventUserDTO;
 import edu.yevynchuk.eventapp.service.EventUserService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,8 +23,13 @@ public class EventUserController {
     }
 
     @GetMapping("/{id}")
-    public EventUserDTO getEventUser(@PathVariable Long id) {
-        return eventUserService.getEventUserById(id);
+    public ResponseEntity<EventUserDTO> getEventUser(@PathVariable Long id) {
+        try {
+            EventUserDTO dto = eventUserService.getEventUserById(id);
+            return ResponseEntity.ok(dto);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping

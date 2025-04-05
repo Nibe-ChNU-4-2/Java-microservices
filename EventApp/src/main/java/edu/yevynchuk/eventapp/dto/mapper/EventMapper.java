@@ -1,9 +1,13 @@
-package edu.yevynchuk.eventapp.mapper;
+package edu.yevynchuk.eventapp.dto.mapper;
 
 import edu.yevynchuk.eventapp.dto.EventDTO;
 import edu.yevynchuk.eventapp.model.Event;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@Data
+@NoArgsConstructor
 @Component
 public class EventMapper {
 
@@ -19,13 +23,11 @@ public class EventMapper {
     }
 
     public EventDTO toDTO(Event entity) {
-        if (entity == null) return null;
-
-        EventDTO dto = new EventDTO();
-        dto.setTitle(entity.getTitle());
-        dto.setDescription(entity.getDescription());
-        dto.setStartTime(entity.getStartTime());
-        dto.setEndTime(entity.getEndTime());
-        return dto;
+        return EventDTO.builder()
+                .title(entity.getTitle())
+                .description(entity.getDescription())
+                .startTime(entity.getStartTime())
+                .endTime(entity.getEndTime())
+                .build();
     }
 }

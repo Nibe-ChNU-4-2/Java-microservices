@@ -2,12 +2,14 @@ package edu.yevynchuk.eventapp.service;
 
 import edu.yevynchuk.eventapp.dto.EventDTO;
 import edu.yevynchuk.eventapp.exception.EventNotFoundException;
-import edu.yevynchuk.eventapp.mapper.EventMapper;
+import edu.yevynchuk.eventapp.dto.mapper.EventMapper;
 import edu.yevynchuk.eventapp.model.Event;
 import edu.yevynchuk.eventapp.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,7 +36,7 @@ public class EventService {
 
     public EventDTO getEventById(long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new EventNotFoundException("Event with ID " + id + " not found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Event not found"));
         return eventMapper.toDTO(event);
     }
 
